@@ -1,0 +1,7 @@
+{
+  "name": "rinao-wealth",
+  "version": "2.0.0",
+  "description": "A retirement and budget planner in plain JavaScript, in South African rand.",
+  "license": "MIT",
+  "scripts": { "test": "node test/run.js" }
+}

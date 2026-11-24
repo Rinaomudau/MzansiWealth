@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rinao Wealth | Smarter money. Better living.</title>
+<meta name="theme-color" content="#2a1a14">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><i aria-hidden="true"></i><span class="brand-copy"><span>Rinao Wealth</span><small>Smarter money. Better living.</small></span></div>
+    <div class="strip" aria-hidden="true"></div>
+    <div class="mini"><small>Wealth score</small><strong data-o="score"></strong></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="strip strip-sm" aria-hidden="true"></div>
+    <div class="foot"><div class="langsw"><label for="langSel">Language</label><select id="langSel"></select></div><button id="reset">Reset and start over</button></div>
+  </aside>
+  <main>
+    <!-- OVERVIEW -->
+    <section class="view" id="v-overview">
+      <h1>Where you stand today</h1>
+      <p class="lead">Answer a few questions to see a range of possible futures. Everything stays in your browser.</p>
+      <div class="card hero">
+        <div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#eadfcc" stroke-width="9"/><circle id="ringArc" cx="50" cy="50" r="42" fill="none" stroke="var(--save)" stroke-width="9" stroke-linecap="round" stroke-dasharray="0 264" style="transition:stroke-dasharray .6s"/></svg><div><strong data-o="score"></strong><small data-o="scoreLabel"></small></div></div>
+        <ul class="ins" id="insights"></ul>
+      </div>
+      <div class="grid4" id="tiles"></div>
+      <div class="next"><a class="btn alt" href="#advisor">Ask Stacy</a><a class="btn" href="#profile">Start with your profile</a></div>
+    </section>
+
+    <!-- ADVISOR -->
+    <section class="view" id="v-advisor">
+      <h1>Ask Stacy</h1>
+      <p class="lead">Stacy is your on-device money guide. Tap a question or type one in English. Nothing leaves this device.</p>
+      <div class="grid2">
+        <div class="card coach">
+          <h2>Your coach's read</h2>
+          <p id="coachText" class="coach-text"></p>
+          <h3>Things to watch</h3>
+          <ul class="ins" id="coachFlags"></ul>
+        </div>
+        <div class="card">
+          <h2>Biggest moves for you</h2>
+          <p class="lead" style="margin:.4em 0 .8em">Each change tested on its own, by gain in your chance of not running out.</p>
+          <div id="coachMoves"></div>
+        </div>
+      </div>
+      <div class="card chat">
+        <h2>Chat with Stacy</h2>
+        <div class="log" id="chatLog" role="log" aria-live="polite" aria-label="Conversation with Stacy"></div>
+        <div class="chips" id="chips"></div>
+        <div class="ask">
+          <label for="askBox" class="sr">Ask Stacy a question</label>
+          <input id="askBox" type="text" autocomplete="off" maxlength="200" placeholder="Try: What if I retire at 60?">
+          <button class="btn" id="askBtn" type="button">Ask</button>
+        </div>
+        <p class="hint" style="font-size:.82rem;color:var(--mute);margin:.8em 0 0">Stacy is a maths assistant, not a licensed adviser. Typed questions work best in English.</p>
+      </div>
+      <div class="next"><a class="btn alt" href="#overview">Back</a><a class="btn" href="#profile">Continue to your profile</a></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="view" id="v-profile">
+      <h1>Tell us about you</h1>
+      <p class="lead">These basics drive every projection. You can change them any time.</p>
+      <div class="card">
+        <div class="row"><div id="f-age"></div><div id="f-retire"></div></div>
+        <div class="row">
+          <div class="fld"><label for="sel-sit">Your situation</label>
+            <select id="sel-sit" data-k="situation"><option value="single">Single</option><option value="married">Married, no kids</option><option value="married-kids">Married, with kids</option><option value="single-kids">Single, with kids</option></select></div>
+          <div class="fld"><label for="sel-house">Where you live</label>
+            <select id="sel-house" data-k="housing"><option value="rent">I rent</option><option value="own">I own</option></select></div>
+        </div>
+        <div id="f-income"></div>
+        <div id="f-saved"></div>
+        <div id="f-employer"></div>
+      </div>
+      <div class="card">
+        <h2>Debt</h2>
+        <p class="lead" style="margin-bottom:1em">Card, student or car debt. Leave at zero if you have none.</p>
+        <div class="row">
+          <div class="fld"><label for="n-debt">Total balance (R)</label><input id="n-debt" type="number" min="0" step="500" data-k="debt"></div>
+          <div class="fld"><label for="n-rate">Interest rate (%)</label><input id="n-rate" type="number" min="0" max="40" step="0.5" data-k="debtRate"></div>
+          <div class="fld"><label for="n-pay">Monthly payment (R)</label><input id="n-pay" type="number" min="0" step="25" data-k="debtPay"></div>
+        </div>
+        <p id="debtMsg" class="hint" style="margin:0"></p>
+      </div>
+      <div class="next"><a class="btn alt" href="#overview">Back</a><a class="btn" href="#takehome">See your take-home pay</a></div>
+    </section>
+
+    <!-- TAKE-HOME PAY -->
+    <section class="view" id="v-takehome">
+      <h1>Your take-home pay</h1>
+      <p class="lead">Gross pay turned into take-home pay using SARS 2026/27 rules.</p>
+      <div class="grid4" id="thTiles" style="margin-bottom:18px"></div>
+      <div class="grid2">
+        <div class="card">
+          <h2>Adjust</h2>
+          <p class="lead" style="margin:.4em 0 1em">Gross pay and age come from your profile.</p>
+          <div id="f-ownRet"></div>
+          <div id="f-medMembers"></div>
+        </div>
+        <div class="card">
+          <h2>Where your gross pay goes</h2>
+          <div class="meter" id="thMeter" style="height:22px;margin:14px 0"></div>
+          <ul class="legend" id="thLegend"></ul>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card"><h2>From gross to take-home</h2>
+          <table><thead><tr><th>Step</th><th class="n">Per month</th><th class="n">Per year</th></tr></thead><tbody id="thRows"></tbody></table>
+        </div>
+        <div class="card"><h2>How your pay is taxed</h2>
+          <p class="lead" style="margin:.4em 0 .8em">Each slice of income is taxed at its own rate.</p>
+          <table><thead><tr><th>Slice</th><th class="n">Rate</th><th class="n">Yours</th></tr></thead><tbody id="thBrackets"></tbody></table>
+          <p class="hint" id="thTip" style="font-size:.88rem;color:var(--mute);margin:.9em 0 0"></p>
+        </div>
+      </div>
+      <p class="hint" style="font-size:.82rem;color:var(--mute)">An estimate for one salaried job using SARS 2026/27 rates. Your payslip may differ a little.</p>
+      <div class="next"><a class="btn alt" href="#profile">Back</a><a class="btn" href="#budget">Continue to your budget</a></div>
+    </section>
+
+    <!-- BUDGET -->
+    <section class="view" id="v-budget">
+      <h1>Your savings and expenses</h1>
+      <p class="lead">Split your income between needs and wants. Whatever's left is what you save.</p>
+      <div class="grid2">
+        <div class="card">
+          <div id="f-basic"></div><div id="f-disc"></div>
+          <p class="hint" style="margin:0;color:var(--mute);font-size:.85rem">Starting values are illustrative averages, not official statistics. Adjust them to match your life.</p>
+        </div>
+        <div class="card" style="display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:center">
+          <svg id="donut" viewBox="0 0 100 100" aria-label="Budget split"></svg>
+          <ul class="legend" id="budLegend"></ul>
+        </div>
+      </div>
+      <div class="card">
+        <details><summary>Enter expense details (optional)</summary>
+          <p class="lead" style="margin:0 0 1em">Percent of your income for each category. Totals update the sliders above.</p>
+          <table><thead><tr><th>Category</th><th>Type</th><th class="n">% of income</th><th class="n">Per month</th></tr></thead><tbody id="catRows"></tbody></table>
+          <div class="actions"><button class="btn alt" id="catReset">Reset to defaults</button></div>
+        </details>
+      </div>
+      <div class="next"><a class="btn alt" href="#takehome">Back</a><a class="btn" href="#compare">See how you compare</a></div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="view" id="v-compare">
+      <h1>Compare with your peers</h1>
+      <p class="lead" id="peerLabel"></p>
+      <div class="card" id="cmpBars"></div>
+      <div class="grid2">
+        <div class="card"><h2>Biggest opportunities</h2><p class="lead" style="margin:.4em 0 1em">Categories where you spend more than your peers, and what closing the gap could be worth.</p><div id="opps"></div></div>
+        <div class="card"><h2>Category by category</h2><table><thead><tr><th>Category</th><th class="n">You</th><th class="n">Peers</th></tr></thead><tbody id="catCmp"></tbody></table></div>
+      </div>
+      <div class="next"><a class="btn alt" href="#budget">Back</a><a class="btn" href="#projection">Project your future</a></div>
+    </section>
+
+    <!-- PROJECTION -->
+    <section class="view" id="v-projection">
+      <h1>What if?</h1>
+      <p class="lead">We run 500 market scenarios and show the middle 80% of outcomes. Move the sliders to try changes.</p>
+      <div class="card">
+        <div class="row">
+          <div id="t-saveRate"></div><div id="t-income"></div><div id="t-retire"></div>
+        </div>
+        <details><summary>Advanced settings</summary>
+          <div class="fld"><label>Investment style</label>
+            <div class="styles" id="styleBtns"></div></div>
+          <div class="row">
+            <div id="t-investPct"></div><div id="t-replacement"></div>
+            <div id="f-pension"></div><div id="f-inflation"></div><div id="f-wage"></div><div id="f-life"></div>
+          </div>
+        </details>
+        <div class="actions"><button class="btn" id="applyT">Apply to my plan</button><button class="btn alt" id="resetT">Reset what-if</button></div>
+      </div>
+      <div class="grid4" id="projTiles" style="margin-bottom:18px"></div>
+      <div class="card">
+        <h2>Range of futures</h2>
+        <div class="chartbox" id="fanBox"><svg id="fan" viewBox="0 0 760 340" role="img" aria-label="Projected savings range by age"></svg><div class="tip" id="tip"></div></div>
+        <div class="key"><span><i style="background:#1f6f8b;opacity:.25"></i>Middle 80% of outcomes</span><span><i style="background:#1f6f8b"></i>Median</span><span id="baseKey" style="display:none"><i style="background:repeating-linear-gradient(90deg,#2a1a14 0 5px,transparent 5px 8px)"></i>Your current plan</span></div>
+      </div>
+      <div class="card"><h2>What moves the needle</h2><p class="lead" style="margin:.4em 0 .8em">Change in your chance of not running out of money.</p><div id="sens"></div></div>
+      <div class="next"><a class="btn alt" href="#compare">Back</a><a class="btn" href="#twopot">Two-pot withdrawals</a></div>
+    </section>
+
+    <!-- TWO-POT -->
+    <section class="view" id="v-twopot">
+      <h1>Two-pot withdrawals</h1>
+      <p class="lead">Since 1 September 2024 your fund has up to three pots. See what a savings pot withdrawal costs.</p>
+      <div class="pots">
+        <div class="pot"><b>Vested pot</b><p>Money saved before 1 September 2024. The old rules still apply.</p></div>
+        <div class="pot sav"><b>Savings pot</b><p>One third of new contributions. One withdrawal a tax year, at least R2 000, taxed at your marginal rate.</p></div>
+        <div class="pot ret"><b>Retirement pot</b><p>Two thirds of new contributions. Locked until retirement, when it buys an annuity.</p></div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h2>Your pots</h2>
+          <p class="lead" style="margin:.4em 0 1em">These are part of your savings on the profile page. Check your fund statement for exact figures.</p>
+          <div id="f-potVested"></div><div id="f-potSavings"></div><div id="f-potRetirement"></div>
+          <p class="hint" id="potSum" style="font-size:.85rem;color:var(--mute);margin:0"></p>
+        </div>
+        <div class="card">
+          <h2>Try a withdrawal</h2>
+          <div id="f-withdraw"></div>
+          <div class="fld"><label for="n-fee">Fund admin fee (R)</label><input id="n-fee" type="number" min="0" step="10" data-k="potFee"><div class="hint">Fees differ by fund. The default is an example.</div></div>
+          <p id="potWarn" class="hint" style="margin:0;font-weight:600"></p>
+        </div>
+      </div>
+      <div class="grid4" id="potTiles" style="margin-bottom:18px"></div>
+      <div class="card" id="potCost"></div>
+      <div class="grid2">
+        <div class="card"><h2>Rand by rand</h2><p class="lead" style="margin:.4em 0 .8em">What common amounts cost you after tax and fee.</p>
+          <table><thead><tr><th>Withdraw</th><th class="n">Tax</th><th class="n">You get</th><th class="n">Keep</th></tr></thead><tbody id="potTable"></tbody></table></div>
+        <div class="card"><h2>Good to know</h2>
+          <ul class="avoid" style="padding-left:1.1em;margin:.8em 0 0">
+            <li>It is taxed as income: the withdrawal is added to your pay and taxed at your marginal rate.</li>
+            <li>SARS can reduce it to settle any tax debt you owe.</li>
+            <li>It shrinks the tax-free lump sum you can take at retirement.</li>
+            <li id="potFlow"></li>
+            <li>Keep a separate emergency fund so you never have to raid your retirement.</li>
+          </ul></div>
+      </div>
+      <p class="hint" style="font-size:.82rem;color:var(--mute)">An estimate. Rules and fees differ by fund, so confirm with your fund first.</p>
+      <div class="next"><a class="btn alt" href="#projection">Back</a><a class="btn" href="#goals">Pick your goals</a></div>
+    </section>
+
+    <!-- GOALS -->
+    <section class="view" id="v-goals">
+      <h1>Pick your goals</h1>
+      <p class="lead">Choose what matters. We work out the monthly amount each needs.</p>
+      <div class="goals" id="goalCards"></div>
+      <div class="card" style="margin-top:18px" id="goalSum"></div>
+      <div class="next"><a class="btn alt" href="#twopot">Back</a><a class="btn" href="#stokvel">Stokvel planner</a></div>
+    </section>
+
+    <!-- STOKVEL -->
+    <section class="view" id="v-stokvel">
+      <h1>Stokvel planner</h1>
+      <p class="lead">Plan group savings, estimate payouts and track who has paid. Everything stays in this browser.</p>
+      <div class="grid2">
+        <div class="card"><h2>Set up your stokvel</h2>
+          <div class="row"><div class="fld"><label for="sv-name">Stokvel name</label><input id="sv-name" maxlength="50" placeholder="Sunday Savers"></div><div class="fld"><label for="sv-members">Number of members</label><input id="sv-members" type="number" min="2" max="1000" value="10"></div></div>
+          <div class="row"><div class="fld"><label for="sv-contribution">Contribution per member (R)</label><input id="sv-contribution" type="number" min="1" step="10" value="500"></div><div class="fld"><label for="sv-frequency">How often</label><select id="sv-frequency"><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option></select></div></div>
+          <div class="fld"><label for="sv-fee">Shared costs per round (R)</label><input id="sv-fee" type="number" min="0" step="10" value="0"></div>
+          <button class="btn" id="sv-save" type="button">Save stokvel plan</button><p class="hint" id="sv-status" aria-live="polite"></p>
+        </div>
+        <div class="card"><h2>Estimated group payout</h2><div id="sv-results" class="grid3"></div><p class="hint">Assumes every member pays on time. Missed payments, bank fees and interest are not included.</p></div>
+      </div>
+      <div class="card"><h2>Who has paid</h2>
+        <div class="row"><div class="fld"><label for="sv-member-name">Member name</label><input id="sv-member-name" maxlength="60" placeholder="Enter a name"></div><div class="fld" style="align-self:end"><button class="btn alt" id="sv-add-member" type="button">Add member</button></div></div>
+        <div id="sv-members-list"></div></div>
+      <div class="card"><h2>Stokvel safety checklist</h2><ul class="ins"><li>Agree written rules, payment dates and payout order.</li><li>Keep records and share statements with every member.</li><li>Agree what happens when someone misses a payment or leaves.</li><li>Never promise guaranteed investment returns.</li></ul></div>
+      <div class="next"><a class="btn alt" href="#goals">Back</a><a class="btn" href="#learn">Money words</a></div>
+    </section>
+    <!-- MONEY WORDS -->
+    <section class="view" id="v-learn">
+      <h1>Money words</h1>
+      <p class="lead">Simple explanations of money terms, in your language and in English.</p>
+      <div class="card"><div id="language-phrases" class="phrase-grid"></div></div>
+      <div class="next"><a class="btn alt" href="#stokvel">Back</a><a class="btn" href="#plan">Build my action plan</a></div>
+    </section>
+    <!-- PLAN -->
+    <section class="view" id="v-plan">
+      <h1>Your action plan</h1>
+      <p class="lead">A checklist built from your numbers. Tick items off; your progress is saved.</p>
+      <div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><strong>Progress</strong><span id="progTxt"></span></div><div class="prog"><i id="progBar" style="width:0"></i></div></div>
+      <div class="grid2">
+        <div class="card"><h2>Things to do</h2><div id="tasks"></div></div>
+        <div>
+          <div class="card"><h2>Things to avoid</h2><ul class="avoid" style="padding-left:1.1em;margin:.8em 0 0">
+            <li>Funds with high fees: a 1% yearly fee can cost about a quarter of your final balance over 30 years.</li>
+            <li>Lifestyle creep: when income rises, raise your savings rate first.</li>
+            <li>Early withdrawals: keep an emergency fund so you never sell investments at a bad time.</li>
+            <li>Chasing the market: steady, automatic contributions beat timing it.</li>
+          </ul></div>
+          <div class="card" id="saTax"></div>
+          <div class="card"><h2>Share your plan</h2><p class="lead" style="margin:.4em 0 1em">Copy a plain-text summary to paste into notes or an email.</p><div class="actions"><button class="btn" id="copyPlan">Copy plan</button></div><textarea id="planText" readonly style="display:none;margin-top:12px"></textarea><p id="copyMsg" class="hint" style="font-size:.85rem;color:var(--save);margin:.6em 0 0"></p></div>
+        </div>
+      </div>
+      <div class="next"><a class="btn alt" href="#learn">Back</a><a class="btn" href="#backup">Backup and print</a></div>
+    </section>
+
+    <!-- BACKUP -->
+    <section class="view" id="v-backup">
+      <h1>Backup and print</h1>
+      <p class="lead">Your answers are saved only in this browser. A backup file keeps them safe.</p>
+      <div class="grid2">
+        <div class="card">
+          <h2>Download a backup</h2>
+          <p class="lead" style="margin:.4em 0 1em">Saves your answers, goals and ticked tasks in one small file.</p>
+          <div class="actions"><button class="btn" id="bkDownload" type="button">Download backup</button></div>
+          <p class="hint" id="bkLast" style="font-size:.88rem;color:var(--mute);margin:.9em 0 0"></p>
+        </div>
+        <div class="card">
+          <h2>Restore from a backup</h2>
+          <p class="lead" style="margin:.4em 0 1em">Choose a backup file. You will see a summary and confirm before anything is replaced.</p>
+          <label for="bkFile" class="sr">Choose a backup file</label>
+          <input id="bkFile" type="file" accept=".json,application/json">
+          <div id="bkPreview" style="margin-top:12px"></div>
+          <p class="hint" id="bkMsg" role="status" style="font-size:.9rem;font-weight:600;margin:.8em 0 0"></p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Print your plan</h2>
+        <p class="lead" style="margin:.4em 0 1em">A one-page summary of your numbers and action list, to print or save as a PDF.</p>
+        <div class="actions"><button class="btn" id="bkPrint" type="button">Print or save as PDF</button></div>
+      </div>
+      <div class="next"><a class="btn alt" href="#plan">Back</a><a class="btn" href="#overview">Back to overview</a></div>
+    </section>
+
+    <p class="disclaimer">Educational estimates only, not financial advice. Real results will differ. Tax uses SARS rules for 2026/27. Ask an authorised adviser before big decisions.</p>
+  </main>
+</div>
+<div class="langgate" id="langGate" data-no-i18n role="dialog" aria-modal="true" aria-labelledby="lgTitle" hidden>
+  <div class="lgbox">
+    <div class="strip" aria-hidden="true"></div>
+    <h1 id="lgTitle">Rinao Wealth</h1>
+    <p class="lgsub">Choose your language</p>
+    <div class="lglist" id="lgList"></div>
+    <p class="lgnote">Translations are a first draft. Fluent speakers are still reviewing them.</p>
+  </div>
+</div>
+<div class="printsheet" id="printSheet" aria-hidden="true"></div>
+
+<script src="js/helpers.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/lang/af.js"></script><script src="js/lang/zu.js"></script><script src="js/lang/xh.js"></script><script src="js/lang/nso.js"></script><script src="js/lang/tn.js"></script><script src="js/lang/st.js"></script><script src="js/lang/ve.js"></script><script src="js/lang/ts.js"></script><script src="js/lang/ss.js"></script><script src="js/lang/nr.js"></script>
+<script src="js/data.js"></script>
+<script src="js/model.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/view.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/features.js"></script>
+</body>
+</html>
